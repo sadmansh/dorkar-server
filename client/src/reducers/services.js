@@ -1,5 +1,10 @@
 const initialState = {
-	isLoading: null,
+	query: [],
+	search: {
+		location: '',
+		keywords: '',
+		category: ''
+	}
 }
 
 export default function services(state=initialState, action) {
@@ -7,7 +12,7 @@ export default function services(state=initialState, action) {
 
 	switch (action.type) {
 		case 'FETCH_SERVICES':
-			return [...state, ...action.services]
+			return {...state, query: action.services}
 
 		default:
 			return state

@@ -5,7 +5,7 @@ import {search} from '../../actions'
 class Results extends Component {
 
 	componentDidMount() {
-		this.props.fetchServices()
+		this.props.search()
 	}
 
 	render() {
@@ -31,14 +31,17 @@ class Results extends Component {
 
 const mapStateToProps = state => {
 	return {
-		services: state.services
+		services: state.services.query,
 	}
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	let location = ownProps.location.state.location
+	let keywords = ownProps.location.state.keywords
+	let category = ownProps.location.state.category
 	return {
-		fetchServices: () => {
-			dispatch(search.fetchServices())
+		search: () => {
+			return dispatch(search.fetchServices(location, keywords, category))
 		}
 	}
 }

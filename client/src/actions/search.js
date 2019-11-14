@@ -1,6 +1,5 @@
 export const fetchServices = (location, keywords, category) => {
 	return (dispatch, getState) => {
-
 		let headers = {'Content-Type': 'application/json'}
 		let body = JSON.stringify({location, keywords, category})
 		return fetch('//localhost:8000/api/services/search/', {headers, body, method: 'POST'})
@@ -17,7 +16,7 @@ export const fetchServices = (location, keywords, category) => {
 			})
 			.then(res => {
 				if (res.status === 200) {
-					return dispatch({type: 'FETCH_SERVICES', services: res.data});
+					return dispatch({type: 'FETCH_SERVICES', services: res.data})
 				}
 				else {
 					throw res

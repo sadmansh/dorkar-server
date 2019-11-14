@@ -1,13 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {search} from '../../actions'
+import {Redirect} from 'react-router-dom'
+
 
 class Search extends Component {
 
 	state = {
 		location: '',
 		keywords: '',
-		category: ''
+		category: '',
+		isLoading: false,
 	}
 
 	componentDidMount() {
@@ -26,10 +28,14 @@ class Search extends Component {
 
 	onSubmit = e => {
 		e.preventDefault()
-		console.log('searching...')
+		this.setState({isLoading: true})
 	}
 
 	render() {
+		if (this.state.isLoading) {
+			return <Redirect to={{pathname: '/services/search', state: {location: this.state.location, keywords: this.state.keywords, category: this.state.category}}} />
+		}
+
 		return (
 			<form onSubmit={this.onSubmit}>
 				<fieldset>
@@ -49,9 +55,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		search: (location, keywords, category) => {
-			return dispatch(search.fetchServices(location, keywords, category))
-		}
+		
 	}
 }
 

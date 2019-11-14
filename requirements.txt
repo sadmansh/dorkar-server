@@ -2,10 +2,15 @@ cffi==1.13.2
 cryptography==2.8
 Django==2.2.7
 django-cors-headers==3.1.1
+django-js-asset==1.2.2
 django-rest-knox==4.1.0
+django-versatileimagefield==1.11
 djangorestframework==3.10.3
+Pillow==6.2.1
 psycopg2==2.8.4
 pycparser==2.19
+python-magic-bin==0.4.14
 pytz==2019.3
 six==1.13.0
 sqlparse==0.3.0
+text-unidecode==1.3

@@ -105,7 +105,7 @@ export const logout = () => {
 	return (dispatch, getState) => {
 		let headers = {'Content-Type': 'application/json'}
 
-		return fetch('//localhost:8000/api/account/logout/', {headers, body: '', method: 'POT'})
+		return fetch('//localhost:8000/api/account/logout/', {headers, body: '', method: 'POST'})
 			.then(res => {
 				if (res.status === 204) {
 					return {status: res.status, data: {}}

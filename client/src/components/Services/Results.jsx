@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {services} from '../../actions'
+import {search} from '../../actions'
 
 class Results extends Component {
 
@@ -17,7 +16,7 @@ class Results extends Component {
 					<tbody>
 						{this.props.services.map((service, id) => (
 							<tr key={`service-${service.id}`}>
-								<td><img src={service.images[0].image.thumbnail} /></td>
+								<td><img src={service.images[0].image.thumbnail} alt={service.images[0].image.alt}/></td>
 								<td>{service.title}</td>
 								<td>{service.description}</td>
 								<td>{service.location}</td>
@@ -39,7 +38,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		fetchServices: () => {
-			dispatch(services.fetchServices())
+			dispatch(search.fetchServices())
 		}
 	}
 }

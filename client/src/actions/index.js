@@ -1,4 +1,4 @@
 import * as auth from './auth'
-import * as services from './services'
+import * as search from './search'
 
-export {auth, services}
+export {auth, search}

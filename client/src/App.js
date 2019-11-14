@@ -10,7 +10,7 @@ import {auth} from './actions'
 import Login from './components/Account/Login'
 import Register from './components/Account/Register'
 import Dashboard from './components/Account/Dashboard'
-import Home from './components/Services/Home'
+import Search from './components/Services/Search'
 import Results from './components/Services/Results'
 
 let store = createStore(dorkarApp, applyMiddleware(thunk))
@@ -39,8 +39,8 @@ class RootContainerComponent extends Component {
 		return (
 			<BrowserRouter>
 				<Switch>
-					<Route exact path="/" component={Home} />
-					<Route exact path="/services" component={Results} />
+					<Route exact path="/" component={Search} />
+					<Route exact path="/services/search" component={Results} />
 					<PrivateRoute exact path="/dashboard" component={Dashboard} />
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />

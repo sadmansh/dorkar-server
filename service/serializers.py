@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, generics
 from account.models import User
 from django.contrib.auth import authenticate
 from .models import Service, ServiceImage

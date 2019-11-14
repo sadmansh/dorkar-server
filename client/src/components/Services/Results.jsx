@@ -17,6 +17,7 @@ class Results extends Component {
 					<tbody>
 						{this.props.services.map((service, id) => (
 							<tr key={`service-${service.id}`}>
+								<td><img src={service.images[0].image.thumbnail} /></td>
 								<td>{service.title}</td>
 								<td>{service.description}</td>
 								<td>{service.location}</td>

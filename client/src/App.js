@@ -9,6 +9,7 @@ import {auth} from './actions'
 
 import Login from './components/Account/Login'
 import Register from './components/Account/Register'
+import VerifyPhone from './components/Account/VerifyPhone'
 import Dashboard from './components/Account/Dashboard'
 import Search from './components/Services/Search'
 import Results from './components/Services/Results'
@@ -44,6 +45,7 @@ class RootContainerComponent extends Component {
 					<PrivateRoute exact path="/dashboard" component={Dashboard} />
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />
+					<PrivateRoute exact path="/verify/phone" component={VerifyPhone} />
 				</Switch>
 			</BrowserRouter>
 		)

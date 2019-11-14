@@ -1,10 +1,14 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 import {auth} from '../../actions'
 
 class Dashboard extends Component {
 
 	render() {
+		if (!this.props.user.phone_verified) {
+			return <Redirect push to={{pathname: '/verify/phone', state: {code: '442322'}}} />
+		}
 		return (
 			<div id="dashboard">
 				<h1>Welcome to your dashboard, {this.props.user.name}</h1>

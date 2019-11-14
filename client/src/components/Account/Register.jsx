@@ -18,7 +18,7 @@ class Register extends Component {
 
 	render() {
 		if (this.props.isAuthenticated) {
-			return <Redirect to="/dashboard" />
+			return <Redirect push to={{pathname: '/verify/phone', state: {code: '442322'}}} />
 		}
 		return (
 			<form onSubmit={this.onSubmit}>

@@ -40,7 +40,7 @@ class RootContainerComponent extends Component {
 			<BrowserRouter>
 				<Switch>
 					<Route exact path="/" component={Search} />
-					<Route exact path="/services/search" component={Results} />
+					<Route exact path="/search" component={Results} />
 					<PrivateRoute exact path="/dashboard" component={Dashboard} />
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />

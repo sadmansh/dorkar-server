@@ -33,7 +33,7 @@ class Search extends Component {
 
 	render() {
 		if (this.state.isLoading) {
-			return <Redirect push to={{pathname: '/services/search', state: {location: this.state.location, keywords: this.state.keywords, category: this.state.category}}} />
+			return <Redirect push to={{pathname: '/search', state: {location: this.state.location, keywords: this.state.keywords, category: this.state.category}}} />
 		}
 
 		return (

@@ -23,7 +23,7 @@ class UserManager(BaseUserManager):
 
 class User(PermissionsMixin, AbstractBaseUser):
 	phone = models.CharField(max_length=20, unique=True, blank=False)
-	email = models.EmailField(unique=True, null=True)
+	email = models.EmailField(unique=True, null=True, blank=True)
 	name = models.CharField(max_length=128, blank=False)
 	company = models.CharField(max_length=128, blank=False)
 	phone_verified = models.BooleanField(default=False)

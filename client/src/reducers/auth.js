@@ -3,6 +3,7 @@ const initialState = {
 	isAuthenticated: null,
 	isLoading: true,
 	user: null,
+	updated: false,
 	errors: {}
 }
 
@@ -18,6 +19,12 @@ export default function auth(state=initialState, action) {
 		case 'REGISTRATION_SUCCESSFUL':
 			localStorage.setItem('token', action.data.token)
 			return {...state, ...action.data, isAuthenticated: true, isLoading: false, errors: null}
+
+		case 'USER_UPDATE_SUCCESSFUL':
+			return {...state, isAuthenticated: true, isLoading: false, updated: true, errors: null, user: action.user}
+
+		case 'USER_UPDATE_FAILED':
+			return {...state, ...action.data, isAuthenticated: true, isLoading: false, updated: false, errors: null}
 
 		case 'AUTHENTICATION_ERROR':
 		case 'LOGIN_FAILED':

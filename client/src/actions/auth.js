@@ -35,6 +35,7 @@ export const loadUser = () => {
 	}
 }
 
+
 export const login = (phone, password) => {
 	return (dispatch, getState) => {
 		let headers = {'Content-Type': 'application/json'}
@@ -67,6 +68,43 @@ export const login = (phone, password) => {
 			})
 	}
 }
+
+
+export const updateUser = (updateData) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token
+		let headers = {
+			'Content-Type': 'application/json'
+		}
+		if (token) {
+			headers['Authorization'] = `Token ${token}`
+		}
+		let body = JSON.stringify(updateData)
+		
+		return fetch('//localhost:8000/api/account/user/', {headers, body, method: 'POST'})
+			.then(res => {
+				if (res.status < 500) {
+					return res.json().then(data => {
+						return {status: res.status, data}
+					})
+				}
+				else {
+					console.log('Server error.')
+				}
+			})
+			.then(res => {
+				if (res.status === 200) {
+					dispatch({type: 'USER_UPDATE_SUCCESSFUL', user: res.data})
+					return res.data
+				}
+				else {
+					dispatch({type: 'USER_UPDATE_FAILED', user: res.data})
+					return res.data
+				}
+			})
+	}
+}
+
 
 export const register = (phone, name, company, password) => {
 	return (dispatch, getState) => {

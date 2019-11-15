@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 	'service',
 	'versatileimagefield',
 	'rest_framework',
+	'rest_framework_gis',
 	'knox',
 	'corsheaders',
 ]

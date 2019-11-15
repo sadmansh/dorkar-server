@@ -1,4 +1,5 @@
 from rest_framework import serializers, generics
+from rest_framework_gis.serializers import GeoModelSerializer
 from account.models import User
 from django.contrib.auth import authenticate
 from .models import Service, ServiceImage
@@ -12,8 +13,9 @@ class ServiceImageSerializer(serializers.ModelSerializer):
 		exclude = ('service', 'ppoi',)
 
 
-class ServiceSerializer(serializers.ModelSerializer):
+class ServiceSerializer(GeoModelSerializer):
 	images = ServiceImageSerializer(required=False, many=True)
 	class Meta:
 		model = Service
 		fields = ('title', 'description', 'keywords', 'location', 'phone', 'images', 'category', 'user',)
+		geo_field = 'location'

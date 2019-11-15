@@ -6,6 +6,8 @@ django-js-asset==1.2.2
 django-rest-knox==4.1.0
 django-versatileimagefield==1.11
 djangorestframework==3.10.3
+djangorestframework-gis==0.14
+marshmallow==3.2.2
 Pillow==6.2.1
 psycopg2==2.8.4
 pycparser==2.19

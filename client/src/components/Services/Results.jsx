@@ -19,7 +19,7 @@ class Results extends Component {
 								<td><img src={service.images[0].image.thumbnail} alt={service.images[0].image.alt}/></td>
 								<td>{service.title}</td>
 								<td>{service.description}</td>
-								<td>{service.location}</td>
+								<td>{service.location.coordinates.toString()}</td>
 							</tr>
 						))}
 					</tbody>

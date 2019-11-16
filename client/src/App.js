@@ -3,6 +3,7 @@ import {Route, Switch, BrowserRouter, Redirect} from 'react-router-dom'
 import { Provider, connect } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
+import Geocode from 'react-geocode'
 
 import dorkarApp from './reducers'
 import {auth} from './actions'
@@ -15,6 +16,9 @@ import Search from './components/Services/Search'
 import Results from './components/Services/Results'
 
 let store = createStore(dorkarApp, applyMiddleware(thunk))
+
+Geocode.setApiKey('AIzaSyD3w9NAB7-dK--R-VewrBYWJeG4utgQOdQ')
+
 
 class RootContainerComponent extends Component {
 	componentDidMount() {

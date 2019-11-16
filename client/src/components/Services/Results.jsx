@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import Geocode from 'react-geocode'
 import {search} from '../../actions'
 import {Layout, Row, Col, Card} from 'antd'
 import 'antd/dist/antd.css'
@@ -8,9 +9,28 @@ import 'antd/dist/antd.css'
 const { Header, Footer, Sider, Content } = Layout
 
 class Results extends Component {
+	state = {
+		address: ''
+	}
 
 	componentDidMount() {
 		this.props.search()
+	}
+
+	getAddress = (coords) => {
+		console.log(coords)
+		Geocode.fromLatLng(coords[1], coords[0]).then(
+			response => {
+				const address = response.results[0].formatted_address;
+				console.log(address)
+				return (
+					<p>{address}</p>
+				)
+			},
+			error => {
+				console.error(error)
+			}
+		);
 	}
 
 	render() {
@@ -21,12 +41,12 @@ class Results extends Component {
 					{this.props.services.map((service, id) => (
 						<Card title={service.title} extra={<a href="#">More</a>} key={id} style={{ marginTop: 16 }}>
 							<Row gutter={16}>
-								<Col span={8}>
-									<img src={service.images[0].image.thumbnail} alt={service.images[0].image.alt}/>
+								<Col span={6}>
+									<img src={service.images[0].image.thumbnail} alt={service.images[0].image.alt} width="120"/>
 								</Col>
-								<Col span={16}>
+								<Col span={18}>
 									<p>{service.description}</p>
-									<p>{service.location.coordinates.toString()}</p>
+									{this.getAddress(service.location.coordinates)}
 								</Col>
 							</Row>
 						</Card>

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'account',
 	'service',
+	'mapwidgets',
 	'versatileimagefield',
 	'rest_framework',
 	'rest_framework_gis',
@@ -150,6 +151,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 REST_FRAMEWORK = {
 	'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+}
+
+
+# Google map widget
+
+MAP_WIDGETS = {
+	"GooglePointFieldWidget": (
+		("zoom", 15),
+		("mapCenterLocation", [23.7276442, 90.4083781]),
+		("GooglePlaceAutocompleteOptions", {'componentRestrictions': {'country': 'bd'}}),
+		("markerFitZoom", 12),
+	),
+	"GOOGLE_MAP_API_KEY": "AIzaSyD3w9NAB7-dK--R-VewrBYWJeG4utgQOdQ"
 }
 
 

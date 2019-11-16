@@ -39,22 +39,24 @@ class Search extends Component {
 		}
 
 		return (
-			<form onSubmit={this.onSubmit}>
-				<fieldset>
-					<legend>Search Services</legend>
-					<Row gutter={16}>
-						<Col span={4}>
-							<Input type="text" placeholder="Enter keywords" onChange={e => this.setState({keywords: e.target.value})} />
-						</Col>
-						<Col span={4}>
-							<Input type="text" placeholder="Enter category" onChange={e => this.setState({category: e.target.value})} />
-						</Col>
-						<Col span={4}>
-							<Button type="primary" htmlType="submit" icon="search">Search</Button>
-						</Col>
-					</Row>
-				</fieldset>
-			</form>
+			<div className="container">
+				<form onSubmit={this.onSubmit}>
+					<fieldset>
+						<legend>Search Services</legend>
+						<Row gutter={16}>
+							<Col span={8}>
+								<Input type="text" placeholder="Enter keywords" onChange={e => this.setState({keywords: e.target.value})} />
+							</Col>
+							<Col span={8}>
+								<Input type="text" placeholder="Enter category" onChange={e => this.setState({category: e.target.value})} />
+							</Col>
+							<Col span={8}>
+								<Button type="primary" htmlType="submit" icon="search">Search</Button>
+							</Col>
+						</Row>
+					</fieldset>
+				</form>
+			</div>
 		)
 	}
 }

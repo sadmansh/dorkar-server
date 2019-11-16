@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {services} from '../../../actions'
-import {Row, Col, Form, Input, Select, Button} from 'antd'
+import {Row, Col, Form, Input, Select, Button, message} from 'antd'
 import 'antd/dist/antd.css'
 
 
@@ -36,8 +36,8 @@ class CreateListing extends Component {
 				coordinates: [90.43864307880969, 23.174755093473564]
 			}
 		}
-		console.log(serviceData)
 		this.props.createService(serviceData)
+		message.success('Listing added successfully.')
 	}
 
 	render() {

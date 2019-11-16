@@ -5,10 +5,10 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.shortcuts import render
-from .serializers import ServiceSerializer
-from rest_framework import viewsets, generics
+from .serializers import ServiceSerializer, CategorySerializer
+from rest_framework import viewsets, generics, status
 from rest_framework.response import Response
-from .models import Service
+from .models import Service, Category
 
 
 class ServiceViewSet(generics.GenericAPIView):
@@ -35,7 +35,7 @@ class ServiceViewSet(generics.GenericAPIView):
 		return Response(serializer.data)
 
 
-class UserServiceViewSet(viewsets.ModelViewSet):
+class DashboardServiceViewSet(viewsets.ModelViewSet):
 	permission_classes = (IsAuthenticated,)
 	serializer_class = ServiceSerializer
 
@@ -44,3 +44,11 @@ class UserServiceViewSet(viewsets.ModelViewSet):
 
 	def perform_create(self, serializer):
 		serializer.save(user=self.request.user)
+
+
+class CategoryListView(generics.GenericAPIView):
+	serializer_class = CategorySerializer
+
+	def get(self, request, *args, **kwargs):
+		serializer = self.serializer_class(Category.objects.all(), many=True)
+		return Response(serializer.data, status=status.HTTP_200_OK)

@@ -2,7 +2,7 @@ from rest_framework import serializers, generics
 from rest_framework_gis.serializers import GeoModelSerializer
 from account.models import User
 from django.contrib.auth import authenticate
-from .models import Service, ServiceImage
+from .models import Service, ServiceImage, Category
 from versatileimagefield.serializers import VersatileImageFieldSerializer
 
 
@@ -19,3 +19,9 @@ class ServiceSerializer(GeoModelSerializer):
 		model = Service
 		fields = ('title', 'description', 'keywords', 'location', 'phone', 'images', 'category',)
 		geo_field = 'location'
+
+
+class CategorySerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Category
+		fields = '__all__'

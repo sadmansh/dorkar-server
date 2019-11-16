@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Geocode from 'react-geocode'
-import {search} from '../../actions'
+import {services} from '../../actions'
 import {Layout, Row, Col, Card} from 'antd'
 import 'antd/dist/antd.css'
 
@@ -69,7 +69,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	let category = ownProps.location.state.category
 	return {
 		search: () => {
-			return dispatch(search.fetchServices(location, keywords, category))
+			return dispatch(services.fetchServices(location, keywords, category))
 		}
 	}
 }

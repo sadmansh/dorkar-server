@@ -1,5 +1,5 @@
 import * as auth from './auth'
-import * as search from './search'
+import * as services from './services'
 import * as dashboard from './dashboard'
 
-export {auth, search, dashboard}
+export {auth, services, dashboard}

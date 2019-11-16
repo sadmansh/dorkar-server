@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import {auth, search} from '../../actions'
+import {auth, services} from '../../actions'
 import {Layout, Row, Col, Card, Input, Select, Button} from 'antd'
 import 'antd/dist/antd.css'
 
@@ -83,7 +83,7 @@ const mapDispatchToProps = dispatch => {
 			dispatch(auth.logout())
 		},
 		listServices: () => {
-			return dispatch(search.listServices())
+			return dispatch(services.listServices())
 		}
 	}
 }

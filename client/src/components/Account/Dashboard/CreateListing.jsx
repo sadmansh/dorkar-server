@@ -19,6 +19,7 @@ class CreateListing extends Component {
 		phone: '',
 		location: null,
 		autocomplete: null,
+		addingListing: false,
 	}
 
 	componentDidMount() {
@@ -27,6 +28,7 @@ class CreateListing extends Component {
 
 	onSubmit = e => {
 		e.preventDefault()
+		this.setState({addingListing: true})
 		let serviceData = {
 			title: this.state.title,
 			description: this.state.description,
@@ -36,7 +38,10 @@ class CreateListing extends Component {
 			location: this.state.location
 		}
 		this.props.createService(serviceData)
-		message.success('Listing added successfully.')
+			.then(() => {
+				this.setState({addingListing: false})
+				message.success('Listing added successfully.')
+			})
 	}
 
 	placeToCoords = () => {
@@ -115,7 +120,7 @@ class CreateListing extends Component {
 								<Input type="text" id="location" />
 							</Form.Item>
 							<Form.Item {...tailFormItemLayout} style={{ marginBottom: 16 }}>
-								<Button type="primary" htmlType="submit">Create Listing</Button>
+								<Button type="primary" htmlType="submit" loading={this.state.addingListing}>Create Listing</Button>
 							</Form.Item>
 						</Form>
 					</Col>

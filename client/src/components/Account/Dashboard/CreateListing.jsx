@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import Script from 'react-load-script'
 import {services} from '../../../actions'
 import {Row, Col, Form, Input, Select, Button, message} from 'antd'
 import 'antd/dist/antd.css'
@@ -16,7 +17,8 @@ class CreateListing extends Component {
 		keywords: '',
 		category: '',
 		phone: '',
-		location: ''
+		location: null,
+		autocomplete: null,
 	}
 
 	componentDidMount() {
@@ -31,13 +33,30 @@ class CreateListing extends Component {
 			keywords: this.state.keywords,
 			category: this.state.category,
 			phone: `+88${this.state.phone}`,
-			location: {
-				type: 'Point',
-				coordinates: [90.43864307880969, 23.174755093473564]
-			}
+			location: this.state.location
 		}
 		this.props.createService(serviceData)
 		message.success('Listing added successfully.')
+	}
+
+	placeToCoords = () => {
+		/*global google*/
+		this.setState({autocomplete: new google.maps.places.Autocomplete(document.getElementById('location'))})
+		this.state.autocomplete.setFields(['geometry', 'formatted_address'])
+		this.state.autocomplete.addListener('place_changed', this.onPlaceSelect)
+	}
+
+	onPlaceSelect = () => {
+		let place = this.state.autocomplete.getPlace()
+		document.getElementById('location').value = place.formatted_address
+		let lat = place.geometry['location'].lat()
+		let long = place.geometry['location'].lng()
+		this.setState({
+			location: {
+				type: 'Point',
+				coordinates: [long, lat]
+			}
+		})
 	}
 
 	render() {
@@ -68,6 +87,7 @@ class CreateListing extends Component {
 		
 		return (
 			<div id="create-listing" style={{ marginBottom: 24 }}>
+				<Script url='//maps.googleapis.com/maps/api/js?key=AIzaSyD3w9NAB7-dK--R-VewrBYWJeG4utgQOdQ&libraries=places' onLoad={this.placeToCoords} />
 				<h2>Create New Listing</h2>
 				<Row gutter={16}>
 					<Col span={20}>
@@ -92,7 +112,7 @@ class CreateListing extends Component {
 								<Input type="text" addonBefore="+88" onChange={e => this.setState({phone: e.target.value})} />
 							</Form.Item>
 							<Form.Item label="Location" style={{ marginBottom: 16 }}>
-								<Input type="text" onChange={e => this.setState({location: e.target.value})} />
+								<Input type="text" id="location" />
 							</Form.Item>
 							<Form.Item {...tailFormItemLayout} style={{ marginBottom: 16 }}>
 								<Button type="primary" htmlType="submit">Create Listing</Button>

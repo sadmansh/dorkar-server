@@ -1,6 +1,7 @@
 from django.contrib.gis.db.models.functions import Distance, AsGeoJSON
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.contrib.postgres.aggregates import StringAgg
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.shortcuts import render
@@ -8,14 +9,6 @@ from .serializers import ServiceSerializer
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from .models import Service
-
-
-class ServicesViewSet(viewsets.ModelViewSet):
-	serializer_class = ServiceSerializer
-
-	def get_queryset(self):
-		qs = Service.objects.all()
-		return qs
 
 
 class ServiceViewSet(generics.GenericAPIView):
@@ -40,3 +33,14 @@ class ServiceViewSet(generics.GenericAPIView):
 
 		serializer = ServiceSerializer(qs, many=True, context={'request': request})
 		return Response(serializer.data)
+
+
+class UserServiceViewSet(viewsets.ModelViewSet):
+	permission_classes = (IsAuthenticated,)
+	serializer_class = ServiceSerializer
+
+	def get_queryset(self):
+		return self.request.user.services.all()
+
+	def perform_create(self, serializer):
+		serializer.save(user=self.request.user)

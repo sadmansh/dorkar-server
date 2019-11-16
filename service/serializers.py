@@ -17,5 +17,5 @@ class ServiceSerializer(GeoModelSerializer):
 	images = ServiceImageSerializer(required=False, many=True)
 	class Meta:
 		model = Service
-		fields = ('title', 'description', 'keywords', 'location', 'phone', 'images', 'category', 'user',)
+		fields = ('title', 'description', 'keywords', 'location', 'phone', 'images', 'category',)
 		geo_field = 'location'

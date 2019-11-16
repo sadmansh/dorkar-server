@@ -48,7 +48,7 @@ class Service(models.Model):
 	date_added = models.DateTimeField(auto_now_add=True)
 	date_modified = models.DateTimeField(auto_now=True, null=True)
 	category = models.ForeignKey(Category, related_name='services', on_delete=models.CASCADE)
-	user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
+	user = models.ForeignKey(User, related_name='services', on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.title

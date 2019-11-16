@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
+import {Row, Col, Input, Button} from 'antd'
+import 'antd/dist/antd.css'
 
 
 class Search extends Component {
@@ -40,9 +42,17 @@ class Search extends Component {
 			<form onSubmit={this.onSubmit}>
 				<fieldset>
 					<legend>Search Services</legend>
-					<input type="text" placeholder="Enter keywords" onChange={e => this.setState({keywords: e.target.value})} />
-					<input type="text" placeholder="Enter category" onChange={e => this.setState({category: e.target.value})} />
-					<button type="submit">Search</button>
+					<Row gutter={16}>
+						<Col span={4}>
+							<Input type="text" placeholder="Enter keywords" onChange={e => this.setState({keywords: e.target.value})} />
+						</Col>
+						<Col span={4}>
+							<Input type="text" placeholder="Enter category" onChange={e => this.setState({category: e.target.value})} />
+						</Col>
+						<Col span={4}>
+							<Button type="primary" htmlType="submit" icon="search">Search</Button>
+						</Col>
+					</Row>
 				</fieldset>
 			</form>
 		)

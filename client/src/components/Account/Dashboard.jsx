@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import {auth, services} from '../../actions'
+import {auth} from '../../actions'
 
 import CreateListing from './Dashboard/CreateListing'
 import AllListings from './Dashboard/AllListings'

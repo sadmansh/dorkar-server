@@ -60,16 +60,13 @@ class Register extends Component {
 								<Input type="text" placeholder="eg. Kamrul Hassan" onChange={e => this.setState({name: e.target.value})} />
 							</Form.Item>
 							<Form.Item label="Phone Number" style={{ marginBottom: 16 }}>
-								<Input type="phone" addonBefore="+88" placeholder="Description" onChange={e => this.setState({phone: e.target.value})} />
+								<Input type="phone" addonBefore="+88" placeholder="0170100100" onChange={e => this.setState({phone: e.target.value})} />
 							</Form.Item>
 							<Form.Item label="Company" style={{ marginBottom: 16 }}>
 								<Input type="text" placeholder="Kamrul Auto Repairs" onChange={e => this.setState({company: e.target.value})} />
 							</Form.Item>
 							<Form.Item label="Password" style={{ marginBottom: 16 }}>
-								<Input type="password" onChange={e => this.setState({password: e.target.value})} />
-							</Form.Item>
-							<Form.Item label="Confirm Password" style={{ marginBottom: 16 }}>
-								<Input type="password" onChange={e => this.setState({confirmPassword: e.target.value})} />
+								<Input.Password type="password" onChange={e => this.setState({password: e.target.value})} />
 							</Form.Item>
 							<Form.Item {...tailFormItemLayout} style={{ marginBottom: 16 }}>
 								<Button type="primary" htmlType="submit">Register</Button>

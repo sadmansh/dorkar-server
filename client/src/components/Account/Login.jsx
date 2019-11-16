@@ -57,7 +57,7 @@ class Login extends Component {
 								<Input type="phone" addonBefore="+88" placeholder="eg. 01711543033" onChange={e => this.setState({phone: e.target.value})} />
 							</Form.Item>
 							<Form.Item label="Password" style={{ marginBottom: 16 }}>
-								<Input type="password" onChange={e => this.setState({password: e.target.value})} />
+								<Input.Password type="password" onChange={e => this.setState({password: e.target.value})} />
 							</Form.Item>
 							<Form.Item {...tailFormItemLayout} style={{ marginBottom: 16 }}>
 								<Button type="primary" htmlType="submit">Log In</Button>

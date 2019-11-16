@@ -1,8 +1,6 @@
-export const fetchServices = (keywords, category) => {
+export const fetchServices = (location, keywords, category) => {
 	return (dispatch, getState) => {
 		let headers = {'Content-Type': 'application/json'}
-		let location = getState()
-		console.log(location)
 		let body = JSON.stringify({location, keywords, category})
 		return fetch('//localhost:8000/api/services/search/', {headers, body, method: 'POST'})
 			.then(res => {

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {search} from '../../actions'
 import {Layout, Row, Col, Card} from 'antd'
-import '../../styles/base.scss'
+import 'antd/dist/antd.css'
 
 
 const { Header, Footer, Sider, Content } = Layout
@@ -15,16 +15,16 @@ class Results extends Component {
 
 	render() {
 		return (
-			<div className="container">
+			<div>
 				<h1>Welcome to dorkar</h1>
-				<Content>
+				<Content width={800}>
 					{this.props.services.map((service, id) => (
-						<Card title={service.title} extra={<a href="#">More</a>} key={id} style={{ marginTop: 16 }} >
+						<Card title={service.title} extra={<a href="#">More</a>} key={id}>
 							<Row gutter={16}>
-								<Col span={8}>
+								<Col span={6}>
 									<img src={service.images[0].image.thumbnail} alt={service.images[0].image.alt}/>
 								</Col>
-								<Col span={16}>
+								<Col span={18}>
 									<p>{service.description}</p>
 									<p>{service.location.coordinates.toString()}</p>
 								</Col>
@@ -40,7 +40,6 @@ class Results extends Component {
 const mapStateToProps = state => {
 	return {
 		services: state.services.query,
-		location: state.services.search.location
 	}
 }
 
@@ -50,8 +49,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	let category = ownProps.location.state.category
 	return {
 		search: () => {
-			return dispatch(search.fetchServices(keywords, category))
-		},
+			return dispatch(search.fetchServices(location, keywords, category))
+		}
 	}
 }
 

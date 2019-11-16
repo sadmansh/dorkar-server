@@ -19,9 +19,25 @@ class CreateListing extends Component {
 		location: ''
 	}
 
+	componentDidMount() {
+		this.props.getCategories()
+	}
+
 	onSubmit = e => {
 		e.preventDefault()
-		console.log(this.state)
+		let serviceData = {
+			title: this.state.title,
+			description: this.state.description,
+			keywords: this.state.keywords,
+			category: this.state.category,
+			phone: `+88${this.state.phone}`,
+			location: {
+				type: 'Point',
+				coordinates: [90.43864307880969, 23.174755093473564]
+			}
+		}
+		console.log(serviceData)
+		this.props.createService(serviceData)
 	}
 
 	render() {
@@ -67,9 +83,9 @@ class CreateListing extends Component {
 							</Form.Item>
 							<Form.Item label="Category" style={{ marginBottom: 16 }}>
 								<Select showSearch style={{ width: '100%' }} placeholder="Select a category" optionFilterProp="children" onChange={value => this.setState({category: value})} >
-									<Option value="jack">Jack</Option>
-									<Option value="lucy">Lucy</Option>
-									<Option value="tom">Tom</Option>
+									{this.props.categories.map((category, id) => (
+										<Option key={id} value={category.id}>{category.name}</Option>
+									))}
 								</Select>
 							</Form.Item>
 							<Form.Item label="Phone" style={{ marginBottom: 16 }}>
@@ -91,7 +107,7 @@ class CreateListing extends Component {
 
 const mapStateToProps = state => {
 	return {
-
+		categories: state.services.categories
 	}
 }
 
@@ -99,6 +115,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		createService: (serviceData) => {
 			return dispatch(services.createService(serviceData))
+		},
+		getCategories: () => {
+			return dispatch(services.getCategories())
 		}
 	}
 }

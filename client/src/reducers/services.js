@@ -1,5 +1,6 @@
 const initialState = {
 	query: [],
+	categories: [],
 	search: {
 		location: '',
 		keywords: '',
@@ -22,6 +23,12 @@ export default function services(state=initialState, action) {
 
 		case 'SERVICES_CREATION_FAILED':
 			return {...state}
+
+		case 'CATEGORIES_LOAD_SUCCESSFUL':
+			return {...state, categories: action.categories}
+
+		case 'CATEGORIES_LOAD_FAILED':
+			return {...state, categories: action.categories}
 
 		case 'GET_LOCATION':
 			return {...state, search: {location: action.location}}

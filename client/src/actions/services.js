@@ -35,7 +35,6 @@ export const listServices = (user = null) => {
 		if (token) {
 			headers['Authorization'] = `Token ${token}`
 		}
-		// let body = JSON.stringify(updateData)
 		
 		return fetch('//localhost:8000/api/dashboard/services/', {headers, method: 'GET'})
 			.then(res => {
@@ -90,6 +89,37 @@ export const createService = (serviceData) => {
 				}
 				else {
 					dispatch({type: 'SERVICES_CREATION_FAILED'})
+					return res.data
+				}
+			})
+	}
+}
+
+
+export const getCategories = () => {
+	return (dispatch, getState) => {
+		let headers = {
+			'Content-Type': 'application/json'
+		}
+		
+		return fetch('//localhost:8000/api/services/categories/', {headers, method: 'GET'})
+			.then(res => {
+				if (res.status < 500) {
+					return res.json().then(data => {
+						return {status: res.status, data}
+					})
+				}
+				else {
+					console.log('Server error.')
+				}
+			})
+			.then(res => {
+				if (res.status === 200) {
+					dispatch({type: 'CATEGORIES_LOAD_SUCCESSFUL', categories: res.data})
+					return res.data
+				}
+				else {
+					dispatch({type: 'CATEGORIES_LOAD_FAILED'})
 					return res.data
 				}
 			})

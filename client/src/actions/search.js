@@ -25,6 +25,43 @@ export const fetchServices = (location, keywords, category) => {
 	}
 }
 
+
+export const listServices = (user = null) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token
+		let headers = {
+			'Content-Type': 'application/json'
+		}
+		if (token) {
+			headers['Authorization'] = `Token ${token}`
+		}
+		// let body = JSON.stringify(updateData)
+		
+		return fetch('//localhost:8000/api/dashboard/services/', {headers, method: 'GET'})
+			.then(res => {
+				if (res.status < 500) {
+					return res.json().then(data => {
+						return {status: res.status, data}
+					})
+				}
+				else {
+					console.log('Server error.')
+				}
+			})
+			.then(res => {
+				if (res.status === 200) {
+					dispatch({type: 'SERVICES_LOADED', services: res.data})
+					return res.data
+				}
+				else {
+					dispatch({type: 'USER_UPDATE_FAILED'})
+					return res.data
+				}
+			})
+	}
+}
+
+
 export const getLocation = () => {
 	return (dispatch, getState) => {
 		if (window.navigator.geolocation) {

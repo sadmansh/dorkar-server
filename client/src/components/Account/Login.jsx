@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, Redirect} from 'react-router-dom'
 import {auth} from '../../actions'
-import {Row, Col, Input, Button} from 'antd'
+import {Row, Col, Form, Input, Button} from 'antd'
 import '../../styles/base.scss'
 
 class Login extends Component {
@@ -13,7 +13,7 @@ class Login extends Component {
 
 	onSubmit = e => {
 		e.preventDefault()
-		this.props.login(this.state.phone, this.state.password)
+		this.props.login(`+88${this.state.phone}`, this.state.password)
 	}
 
 	render() {
@@ -21,34 +21,58 @@ class Login extends Component {
 			return <Redirect to="/dashboard" />
 		}
 
+		const formItemLayout = {
+			labelCol: {
+				xs: { span: 24 },
+				sm: { span: 6 },
+			},
+			wrapperCol: {
+				xs: { span: 24 },
+				sm: { span: 18 },
+			},
+		}
+
+		const tailFormItemLayout = {
+			wrapperCol: {
+				xs: {
+					span: 24,
+					offset: 0,
+				},
+				sm: {
+					span: 16,
+					offset: 6,
+				},
+			},
+		}
+
 		return (
-			<div className="container">
-				<form onSubmit={this.onSubmit}>
-					<fieldset>
-						<legend>Login</legend>
-						{this.props.errors.length > 0 && (
-							<ul>
-								{this.props.errors.map(error => (
-									<li key={error.field}>{error.message}</li>
-								))}
-							</ul>
-						)}
-						<Row gutter={16}>
-							<Col span={8}>
-								<Input addonBefore="Phone" type="phone" id="phone" onChange={e => this.setState({phone: e.target.value})} />
-							</Col>
-							<Col span={8}>
-								<Input addonBefore="Password" type="password" id="password" onChange={e => this.setState({password: e.target.value})} />
-							</Col>
-							<Col span={8}>
-								<Button type="primary" htmlType="submit">Login</Button>
-							</Col>
-							<Col span={24}>
+			<div id="login" className="container">
+				<Row gutter={16}>
+					<Col span={24} offset={5}>
+						<h1>Log In</h1>
+					</Col>
+					<Col span={20}>
+						<Form {...formItemLayout} onSubmit={this.onSubmit}>
+							<Form.Item label="Phone" style={{ marginBottom: 16 }}>
+								<Input type="phone" addonBefore="+88" placeholder="eg. 01711543033" onChange={e => this.setState({phone: e.target.value})} />
+							</Form.Item>
+							<Form.Item label="Password" style={{ marginBottom: 16 }}>
+								<Input type="password" onChange={e => this.setState({password: e.target.value})} />
+							</Form.Item>
+							<Form.Item {...tailFormItemLayout} style={{ marginBottom: 16 }}>
+								<Button type="primary" htmlType="submit">Log In</Button>
+								{this.props.errors.length > 0 && (
+									<ul>
+										{this.props.errors.map(error => (
+											<li key={error.field}>{error.message}</li>
+										))}
+									</ul>
+								)}
 								<p>Don't have an account? <Link to="/register">Register here</Link>.</p>
-							</Col>
-						</Row>
-					</fieldset>
-				</form>
+							</Form.Item>
+						</Form>
+					</Col>
+				</Row>
 			</div>
 		)
 	}

@@ -2,47 +2,90 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, Redirect} from 'react-router-dom'
 import {auth} from '../../actions'
+import {Row, Col, Card, Form, Input, Select, Button} from 'antd'
+import 'antd/dist/antd.css'
 
 class Register extends Component {
 	state = {
 		phone: '',
 		name: '',
 		company: '',
-		password: ''
+		password: '',
+		confirmPassword: ''
 	}
 
 	onSubmit = e => {
 		e.preventDefault()
-		this.props.register(this.state.phone, this.state.name, this.state.company, this.state.password)
+		this.props.register(`+88${this.state.phone}`, this.state.name, this.state.company, this.state.password)
 	}
 
 	render() {
 		if (this.props.isAuthenticated) {
 			return <Redirect push to={{pathname: '/verify/phone', state: {code: '442322'}}} />
 		}
+
+		const formItemLayout = {
+			labelCol: {
+				xs: { span: 24 },
+				sm: { span: 6 },
+			},
+			wrapperCol: {
+				xs: { span: 24 },
+				sm: { span: 18 },
+			},
+		}
+
+		const tailFormItemLayout = {
+			wrapperCol: {
+				xs: {
+					span: 24,
+					offset: 0,
+				},
+				sm: {
+					span: 16,
+					offset: 6,
+				},
+			},
+		}
+
 		return (
-			<form onSubmit={this.onSubmit}>
-				<fieldset>
-					<legend>Register</legend>
-					{this.props.errors.length > 0 && (
-						<ul>
-							{this.props.errors.map(error => (
-								<li key={error.field}>{error.message}</li>
-							))}
-						</ul>
-					)}
-					<label htmlFor="name">Name</label>
-					<input type="text" id="name" onChange={e => this.setState({name: e.target.value})} />
-					<label htmlFor="phone">Phone</label>
-					<input type="phone" id="phone" onChange={e => this.setState({phone: e.target.value})} />
-					<label htmlFor="company">Company</label>
-					<input type="text" id="company" onChange={e => this.setState({company: e.target.value})} />
-					<label htmlFor="password">Password</label>
-					<input type="password" id="password" onChange={e => this.setState({password: e.target.value})} />
-					<button type="submit">Register</button>
-					<p>Already have an account? <Link to="/login">Login here</Link>.</p>
-				</fieldset>
-			</form>
+			<div id="register" className="container">
+				<Row gutter={16}>
+					<Col span={24} offset={5}>
+						<h1>Register</h1>
+					</Col>
+					<Col span={20}>
+						<Form {...formItemLayout} onSubmit={this.onSubmit}>
+							<Form.Item label="Name" style={{ marginBottom: 16 }}>
+								<Input type="text" placeholder="eg. Kamrul Hassan" onChange={e => this.setState({name: e.target.value})} />
+							</Form.Item>
+							<Form.Item label="Phone Number" style={{ marginBottom: 16 }}>
+								<Input type="phone" addonBefore="+88" placeholder="Description" onChange={e => this.setState({phone: e.target.value})} />
+							</Form.Item>
+							<Form.Item label="Company" style={{ marginBottom: 16 }}>
+								<Input type="text" placeholder="Kamrul Auto Repairs" onChange={e => this.setState({company: e.target.value})} />
+							</Form.Item>
+							<Form.Item label="Password" style={{ marginBottom: 16 }}>
+								<Input type="password" onChange={e => this.setState({password: e.target.value})} />
+							</Form.Item>
+							<Form.Item label="Confirm Password" style={{ marginBottom: 16 }}>
+								<Input type="password" onChange={e => this.setState({confirmPassword: e.target.value})} />
+							</Form.Item>
+							<Form.Item {...tailFormItemLayout} style={{ marginBottom: 16 }}>
+								<Button type="primary" htmlType="submit">Register</Button>
+								{this.props.errors.length > 0 && (
+									<ul>
+										{this.props.errors.map(error => (
+											<li key={error.field}>{error.message}</li>
+										))}
+									</ul>
+								)}
+								<p>Already have an account? <Link to="/login">Login here</Link>.</p>
+							</Form.Item>
+						</Form>
+					</Col>
+				</Row>
+			</div>
 		)
 	}
 }

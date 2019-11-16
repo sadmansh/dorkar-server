@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Geocode from 'react-geocode'
+import {Link} from 'react-router-dom'
 import {services} from '../../actions'
 import {Layout, Row, Col, Card} from 'antd'
 import 'antd/dist/antd.css'
 
 
-const { Header, Footer, Sider, Content } = Layout
+const { Content } = Layout
 
 class Results extends Component {
 	state = {
@@ -18,14 +19,10 @@ class Results extends Component {
 	}
 
 	getAddress = (coords) => {
-		console.log(coords)
 		Geocode.fromLatLng(coords[1], coords[0]).then(
 			response => {
-				const address = response.results[0].formatted_address;
-				console.log(address)
-				return (
-					<p>{address}</p>
-				)
+				let address = response.results[0].formatted_address;
+				return address
 			},
 			error => {
 				console.error(error)
@@ -39,7 +36,7 @@ class Results extends Component {
 				<h1>Welcome to dorkar</h1>
 				<Content width={800}>
 					{this.props.services.map((service, id) => (
-						<Card title={service.title} extra={<a href="#">More</a>} key={id} style={{ marginTop: 16 }}>
+						<Card title={service.title} extra={<Link to="#">More</Link>} key={id} style={{ marginTop: 16 }}>
 							<Row gutter={16}>
 								<Col span={6}>
 									<img src={service.images[0].image.thumbnail} alt={service.images[0].image.alt} width="120"/>

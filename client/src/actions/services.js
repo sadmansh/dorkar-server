@@ -61,6 +61,41 @@ export const listServices = (user = null) => {
 	}
 }
 
+export const createService = (serviceData) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token
+		let headers = {
+			'Content-Type': 'application/json'
+		}
+		if (token) {
+			headers['Authorization'] = `Token ${token}`
+		}
+		let body = JSON.stringify(serviceData)
+		
+		return fetch('//localhost:8000/api/dashboard/services/', {headers, body, method: 'POST'})
+			.then(res => {
+				if (res.status < 500) {
+					return res.json().then(data => {
+						return {status: res.status, data}
+					})
+				}
+				else {
+					console.log('Server error.')
+				}
+			})
+			.then(res => {
+				if (res.status === 200) {
+					dispatch({type: 'SERVICES_CREATION_SUCCESSFUL', service: res.data})
+					return res.data
+				}
+				else {
+					dispatch({type: 'SERVICES_CREATION_FAILED'})
+					return res.data
+				}
+			})
+	}
+}
+
 
 export const getLocation = () => {
 	return (dispatch, getState) => {

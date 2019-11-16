@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, Redirect} from 'react-router-dom'
 import {auth} from '../../actions'
-import {Row, Col, Card, Form, Input, Select, Button} from 'antd'
+import {Row, Col, Form, Input, Button} from 'antd'
 import 'antd/dist/antd.css'
 
 class Register extends Component {

@@ -14,6 +14,9 @@ export default function services(state=initialState, action) {
 		case 'FETCH_SERVICES':
 			return {...state, query: action.services}
 
+		case 'GET_LOCATION':
+			return {...state, search: {location: action.location}}
+
 		default:
 			return state
 	}

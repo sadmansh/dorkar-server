@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, Redirect} from 'react-router-dom'
 import {auth} from '../../actions'
+import {Row, Col, Input, Button} from 'antd'
+import '../../styles/base.scss'
 
 class Login extends Component {
 	state = {
@@ -20,24 +22,34 @@ class Login extends Component {
 		}
 
 		return (
-			<form onSubmit={this.onSubmit}>
-				<fieldset>
-					<legend>Login</legend>
-					{this.props.errors.length > 0 && (
-						<ul>
-							{this.props.errors.map(error => (
-								<li key={error.field}>{error.message}</li>
-							))}
-						</ul>
-					)}
-					<label htmlFor="phone">Phone</label>
-					<input type="phone" id="phone" onChange={e => this.setState({phone: e.target.value})} />
-					<label htmlFor="password">Password</label>
-					<input type="password" id="password" onChange={e => this.setState({password: e.target.value})} />
-					<button type="submit">Login</button>
-					<p>Don't have an account? <Link to="/register">Register here</Link>.</p>
-				</fieldset>
-			</form>
+			<div className="container">
+				<form onSubmit={this.onSubmit}>
+					<fieldset>
+						<legend>Login</legend>
+						{this.props.errors.length > 0 && (
+							<ul>
+								{this.props.errors.map(error => (
+									<li key={error.field}>{error.message}</li>
+								))}
+							</ul>
+						)}
+						<Row gutter={16}>
+							<Col span={8}>
+								<Input addonBefore="Phone" type="phone" id="phone" onChange={e => this.setState({phone: e.target.value})} />
+							</Col>
+							<Col span={8}>
+								<Input addonBefore="Password" type="password" id="password" onChange={e => this.setState({password: e.target.value})} />
+							</Col>
+							<Col span={8}>
+								<Button type="primary" htmlType="submit">Login</Button>
+							</Col>
+							<Col span={24}>
+								<p>Don't have an account? <Link to="/register">Register here</Link>.</p>
+							</Col>
+						</Row>
+					</fieldset>
+				</form>
+			</div>
 		)
 	}
 }

@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import {Row, Col, Input, Button} from 'antd'
+import {services} from '../../actions'
+import {Row, Col, Input, Select, Button} from 'antd'
 import 'antd/dist/antd.css'
 
+
+const {Option} = Select
 
 class Search extends Component {
 
@@ -15,6 +18,7 @@ class Search extends Component {
 	}
 
 	componentDidMount() {
+		this.props.getCategories()
 		if (window.navigator.geolocation) {
 			let latitude, longitude
 			navigator.geolocation.getCurrentPosition(async (position) => {
@@ -48,7 +52,11 @@ class Search extends Component {
 								<Input type="text" placeholder="Enter keywords" onChange={e => this.setState({keywords: e.target.value})} />
 							</Col>
 							<Col span={8}>
-								<Input type="text" placeholder="Enter category" onChange={e => this.setState({category: e.target.value})} />
+								<Select showSearch style={{ width: '100%' }} placeholder="Select a category" optionFilterProp="children" onChange={value => this.setState({category: value})} >
+									{this.props.categories.map((category, id) => (
+										<Option key={id} value={category.slug}>{category.name}</Option>
+									))}
+								</Select>
 							</Col>
 							<Col span={8}>
 								<Button type="primary" htmlType="submit" icon="search">Search</Button>
@@ -62,12 +70,16 @@ class Search extends Component {
 }
 
 const mapStateToProps = state => {
-	return {}
+	return {
+		categories: state.services.categories
+	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		
+		getCategories: () => {
+			return dispatch(services.getCategories())
+		}
 	}
 }
 

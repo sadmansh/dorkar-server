@@ -8,24 +8,6 @@ import 'antd/dist/antd.css'
 
 class AllListings extends Component {
 
-	state = {
-		serviceData: {
-			title: '',
-			description: '',
-			keywords: '',
-			category: '',
-			phone: '',
-			location: {
-				type: 'Point',
-				coordinates: [
-					90.43864307880969,
-					23.174755093473564
-				]
-			}
-		},
-		location: ''
-	}
-
 	componentDidMount() {
 		this.props.listServices()
 	}

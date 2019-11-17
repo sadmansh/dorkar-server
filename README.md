@@ -19,5 +19,4 @@
 # Todo
 
 1. Create API endpoint to send SMS to user phone number
-2. List all services created by users in dashboard
-3. Let users CRUD services
+2. Let users CRUD services

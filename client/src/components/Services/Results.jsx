@@ -34,13 +34,15 @@ class Results extends Component {
 		return (
 			<div className="container">
 				<h1>Welcome to dorkar</h1>
-				<Content width={800}>
+				<Content>
 					{this.props.services.map((service, id) => (
 						<Card title={service.title} extra={<Link to="#">More</Link>} key={id} style={{ marginTop: 16 }}>
 							<Row gutter={16}>
-								<Col span={6}>
-									<img src={service.images[0].image.thumbnail} alt={service.images[0].image.alt} width="120"/>
-								</Col>
+								{service.images.length > 0 ? (
+									<Col span={6}>
+										<img src={service.images[0].image.thumbnail} alt={service.images[0].image.alt} width="120"/>
+									</Col>
+								) : ('')}
 								<Col span={18}>
 									<p>{service.description}</p>
 									{this.getAddress(service.location.coordinates)}

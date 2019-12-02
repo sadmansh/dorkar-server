@@ -1,1 +1,1 @@
-web: gunicorn dorkar.wsgi --log-file=-
+web: gunicorn dorkar.wsgi --log-file -

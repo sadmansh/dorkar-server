@@ -33,7 +33,9 @@ SECRET_KEY = '7lay6g^yx$2$%!#v#j@l+z79s=dp$6j0g)@@oti&6ss40idi3l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+	'dorkar-server-env.psxyxnt2xw.ap-southeast-1.elasticbeanstalk.com',
+]
 
 
 # Application definition

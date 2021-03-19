@@ -9,7 +9,7 @@ django-js-asset==1.2.2
 django-map-widgets==0.2.2
 django-rest-knox==4.1.0
 django-versatileimagefield==1.11
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 djangorestframework-gis==0.14
 gunicorn==20.0.4
 marshmallow==3.2.2
